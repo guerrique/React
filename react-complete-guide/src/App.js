@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
 // import React, { useState } from 'react';
+import styled from 'styled-components';
+
+
 import './App.css';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+        background-color: green;
+        color: white;
+        font: inherit;
+        border: 1px solid blue;
+        padding: 8px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lightgreen;
+          color: black;
+        }
+
+`;
 
 class App extends Component {
   state = {
@@ -59,11 +77,16 @@ class App extends Component {
 
   render() {
     const style = {
-        backgroundColor: 'white',
+        backgroundColor: 'green',
+        color: 'white',
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        ':hover': {
+          backgroundColor: 'lightgreen',
+          color: 'black'
+        }
     };
 
     let persons = null;
@@ -81,24 +104,39 @@ class App extends Component {
           })}
         </div>
         );
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+          backgroundColor: 'salmon',
+          color: 'black'
+        }
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is fantastic</p>
-        <button
-        style={style}
-        onClick={this.togglePersonsHandler}>Toggle name</button>
 
-         {persons}
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className = {classes.join(' ')}>This is fantastic</p>
+          <StyledButton
+          onClick={this.togglePersonsHandler}>Toggle name</StyledButton>
 
-      </div>
+           {persons}
+
+        </div>
+
     );
   }
 }
 
 export default App;
+
 
 
 // const app = props => {
